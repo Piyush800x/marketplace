@@ -1,6 +1,7 @@
 from django.db import models
-
+from django.contrib.auth.models import User, UserManager
 # Create your models here.
+from django import forms
 
 
 class Product(models.Model):
@@ -10,3 +11,11 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class User(models.Model):
+    email = models.EmailField(null=False, blank=False)
+    password = forms.CharField(widget=forms.PasswordInput)
+
+    def __str__(self):
+        return self.email
