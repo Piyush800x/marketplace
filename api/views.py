@@ -5,6 +5,7 @@ from .serializers import ProductSerializer, RegisterSerializer
 from .models import Product
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+# from rest_framework_simplejwt.tokens import RefreshToken
 from .forms import Register, RegistrationForm
 from rest_framework import status
 from rest_framework import generics
@@ -46,21 +47,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
-
-
-# NEW
-@api_view(["POST"])
-def register(request):
-    if request.method == 'POST':
-        print("REQ DATA: ", request.data)
-
-        form = RegistrationForm(data=request.data.get('user'))
-        # print("SERIZLIZER DATA: ", serializer.data)
-        if form.is_valid():
-            # print("SERIZLIZER DATA: ", serializer.data)
-            form.save()
-            print("FORM DATA: ", form.data)
-            return Response(form.data, status=status.HTTP_201_CREATED)
 
 
 class RegisterView(generics.CreateAPIView):
